@@ -26,7 +26,7 @@ def generate_launch_description():
         [
             DeclareLaunchArgument("config_file", default_value=default_config_file),
             DeclareLaunchArgument("node_name", default_value="custom_joy_node"),
-            DeclareLaunchArgument("joy_topic", default_value="joy"),
+            DeclareLaunchArgument("joy_topic", default_value="/joy"),
             DeclareLaunchArgument("device_path", default_value=""),
             DeclareLaunchArgument("publish_rate_hz", default_value="50.0"),
             DeclareLaunchArgument("scan_period_ms", default_value="1000"),
@@ -42,7 +42,6 @@ def generate_launch_description():
                 parameters=[
                     config_file,
                     {
-                        "topic_name": "joy",
                         "device_path": device_path,
                         "publish_rate_hz": ParameterValue(publish_rate_hz, value_type=float),
                         "scan_period_ms": ParameterValue(scan_period_ms, value_type=int),
@@ -53,7 +52,7 @@ def generate_launch_description():
                     },
                 ],
                 remappings=[
-                    ("joy", joy_topic),
+                    ("/joy", joy_topic),
                 ],
             ),
         ]

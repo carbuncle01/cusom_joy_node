@@ -66,7 +66,6 @@ private:
   void close_device();
 #endif
 
-  std::string topic_name_;
   std::string device_path_;
   std::string active_device_path_;
   double publish_rate_hz_;

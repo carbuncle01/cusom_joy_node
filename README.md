@@ -36,7 +36,6 @@ ros2 launch custom_joy_node custom_joy_node.launch.py joy_topic:=/joy
 
 ```bash
 ros2 run custom_joy_node custom_joy_node --ros-args \
-  -p topic_name:=joy \
   -p device_path:=/dev/input/js0 \
   -p publish_rate_hz:=50.0 \
   -p scan_period_ms:=1000 \
@@ -46,6 +45,7 @@ ros2 run custom_joy_node custom_joy_node --ros-args \
   -p prefer_evdev:=true
 ```
 
+- Topic is fixed to `/joy`; change it from launch remapping with `joy_topic:=...`.
 - `device_path`: set this to a fixed device such as `/dev/input/event5` or `/dev/input/js0`; leave empty to scan automatically.
 - `default_axes_count` / `default_buttons_count`: output size while no controller is connected.
 - `deadzone`: values smaller than this are published as zero.

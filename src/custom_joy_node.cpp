@@ -19,7 +19,6 @@
 CustomJoyNode::CustomJoyNode()
 : Node("custom_joy_node")
 {
-  topic_name_ = declare_parameter<std::string>("topic_name", "joy");
   device_path_ = declare_parameter<std::string>("device_path", "");
   publish_rate_hz_ = declare_parameter<double>("publish_rate_hz", 50.0);
   scan_period_ms_ = declare_parameter<int>("scan_period_ms", 1000);
@@ -37,7 +36,7 @@ CustomJoyNode::CustomJoyNode()
   axes_.assign(static_cast<size_t>(default_axes_count_), 0.0F);
   buttons_.assign(static_cast<size_t>(default_buttons_count_), 0);
 
-  joy_pub_ = create_publisher<sensor_msgs::msg::Joy>(topic_name_, 10);
+  joy_pub_ = create_publisher<sensor_msgs::msg::Joy>("/joy", 10);
 
   const auto publish_period = std::chrono::duration<double>(1.0 / publish_rate_hz_);
   publish_timer_ = create_wall_timer(
@@ -48,7 +47,7 @@ CustomJoyNode::CustomJoyNode()
     std::bind(&CustomJoyNode::try_connect, this));
 
   try_connect();
-  RCLCPP_INFO(get_logger(), "custom_joy_node started. Publishing '%s'.", topic_name_.c_str());
+  RCLCPP_INFO(get_logger(), "custom_joy_node started. Publishing '/joy'.");
 }
 
 CustomJoyNode::~CustomJoyNode()

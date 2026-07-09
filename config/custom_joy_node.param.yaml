@@ -1,6 +1,5 @@
 custom_joy_node:
   ros__parameters:
-    topic_name: joy
     device_path: ""
     publish_rate_hz: 50.0
     scan_period_ms: 1000
