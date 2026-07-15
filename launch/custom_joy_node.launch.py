@@ -33,7 +33,7 @@ def generate_launch_description():
             DeclareLaunchArgument("default_axes_count", default_value="8"),
             DeclareLaunchArgument("default_buttons_count", default_value="16"),
             DeclareLaunchArgument("deadzone", default_value="0.05"),
-            DeclareLaunchArgument("prefer_evdev", default_value="true"),
+            DeclareLaunchArgument("prefer_evdev", default_value="false"),
             Node(
                 package="custom_joy_node",
                 executable="custom_joy_node",

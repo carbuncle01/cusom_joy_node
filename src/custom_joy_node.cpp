@@ -25,7 +25,7 @@ CustomJoyNode::CustomJoyNode()
   default_axes_count_ = declare_parameter<int>("default_axes_count", 8);
   default_buttons_count_ = declare_parameter<int>("default_buttons_count", 16);
   deadzone_ = declare_parameter<double>("deadzone", 0.0);
-  prefer_evdev_ = declare_parameter<bool>("prefer_evdev", true);
+  prefer_evdev_ = declare_parameter<bool>("prefer_evdev", false);
 
   default_axes_count_ = std::max(default_axes_count_, 0);
   default_buttons_count_ = std::max(default_buttons_count_, 0);
@@ -262,6 +262,11 @@ bool CustomJoyNode::open_joystick_device(const std::string & path)
   if (ioctl(fd, JSIOCGAXES, &axes_count) < 0 ||
     ioctl(fd, JSIOCGBUTTONS, &buttons_count) < 0)
   {
+    close(fd);
+    return false;
+  }
+
+  if (axes_count == 0 || buttons_count == 0) {
     close(fd);
     return false;
   }

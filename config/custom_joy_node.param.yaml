@@ -6,4 +6,4 @@ custom_joy_node:
     default_axes_count: 8
     default_buttons_count: 16
     deadzone: 0.05
-    prefer_evdev: true
+    prefer_evdev: false

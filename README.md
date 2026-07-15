@@ -7,12 +7,12 @@ controller is connected.
 
 ## Behavior
 
-- Scans `/dev/input/event0` to `/dev/input/event63` automatically, then falls back to `/dev/input/js0` to `/dev/input/js31`.
+- Scans `/dev/input/js0` to `/dev/input/js31` automatically, then falls back to `/dev/input/event0` to `/dev/input/event63`.
 - Publishes zero-filled `joy` messages when no controller is connected.
 - Detects controller disconnection, logs a warning, and keeps publishing zeros.
 - Reconnects automatically when a controller appears again.
 - Publishes axes/buttons exposed by Linux input devices.
-- Prefers evdev so DualShock 4 L2/R2 can be read as analog axes when the driver exposes them.
+- Prefers Linux joystick devices (`/dev/input/js*`) so runtime input matches the Joy Profile Editor by default.
 
 ## Build
 
@@ -42,14 +42,14 @@ ros2 run custom_joy_node custom_joy_node --ros-args \
   -p default_axes_count:=8 \
   -p default_buttons_count:=16 \
   -p deadzone:=0.05 \
-  -p prefer_evdev:=true
+  -p prefer_evdev:=false
 ```
 
 - Topic is fixed to `/joy`; change it from launch remapping with `joy_topic:=...`.
 - `device_path`: set this to a fixed device such as `/dev/input/event5` or `/dev/input/js0`; leave empty to scan automatically.
 - `default_axes_count` / `default_buttons_count`: output size while no controller is connected.
 - `deadzone`: values smaller than this are published as zero.
-- `prefer_evdev`: use `/dev/input/event*` before `/dev/input/js*`.
+- `prefer_evdev`: use `/dev/input/event*` before `/dev/input/js*`; default is false.
 
 The same parameters can be edited in `config/custom_joy_node.param.yaml` or overridden from launch:
 
